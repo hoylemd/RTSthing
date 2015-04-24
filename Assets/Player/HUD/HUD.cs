@@ -13,14 +13,20 @@ public class HUD : MonoBehaviour {
 	}
 
 	void DrawOrdersBar() {
+		float xOffset = Screen.width - ORDERS_BAR_WIDTH,
+			height = Screen.width - RESOURCE_BAR_HEIGHT;
 		GUI.skin = ordersSkin;
-		GUI.BeginGroup(new Rect(Screen.width-ORDERS_BAR_WIDTH, RESOURCE_BAR_HEIGHT, ORDERS_BAR_WIDTH, Screen.width - RESOURCE_BAR_HEIGHT));
-		GUI.Box (new Rect(0, 0, ORDERS_BAR_WIDTH, Screen.height - RESOURCE_BAR_HEIGHT), "");
+		GUI.BeginGroup(new Rect(xOffset, RESOURCE_BAR_HEIGHT, ORDERS_BAR_WIDTH, height));
+		GUI.Box (new Rect(0, 0, ORDERS_BAR_WIDTH, height), "");
 		GUI.EndGroup();
 	}
 
 	void DrawResourceBar() {
-
+		Rect barArea = new Rect(0, 0, Screen.width, RESOURCE_BAR_HEIGHT);
+		GUI.skin = resourceSkin;
+		GUI.BeginGroup(barArea);
+		GUI.Box (barArea, "");
+		GUI.EndGroup();
 	}
 
 	// Update is called once per frame
