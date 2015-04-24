@@ -10,13 +10,31 @@ public class WorldObject : MonoBehaviour {
 	protected string[] actions = {};
 	protected bool currentlySelected = false;
 
+	protected virtual void Awake() {
+  }
+
 	// Use this for initialization
-	void Start () {
-	
+	protected virtual void Start() {
+
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-	
+	protected virtual void Update() {
+
 	}
+
+	protected virtual void OnGUI() {
+  }
+
+  public void SetSelection(bool selected) {
+    currentlySelected = selected;
+  }
+
+  public string[] GetActions() {
+    return actions;
+  }
+
+  public virtual void PerformAction(string action) {
+    // children will hande
+  }
 }
