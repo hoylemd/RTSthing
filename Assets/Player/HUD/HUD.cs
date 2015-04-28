@@ -36,4 +36,12 @@ public class HUD : MonoBehaviour {
 			DrawResourceBar();
 		}
 	}
+
+	public bool MouseInBounds() {
+		Vector3 mousePosition = Input.mousePosition;
+		return (mousePosition.y <= Screen.height - RESOURCE_BAR_HEIGHT&&
+				mousePosition.y >= 0) &&
+			(mousePosition.x <= Screen.width - ORDERS_BAR_WIDTH &&
+				mousePosition.x >= 0);
+	}
 }

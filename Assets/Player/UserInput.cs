@@ -53,7 +53,8 @@ public class UserInput : MonoBehaviour {
 		}
 
 		if (destination != origin) {
-			Camera.main.transform.position = Vector3.MoveTowards(origin, destination, Time.deltaTime * ResourceManager.ScrollSpeed);
+			Camera.main.transform.position = Vector3.MoveTowards(origin,
+				destination, Time.deltaTime * ResourceManager.ScrollSpeed);
 		}
 	}
 
@@ -63,7 +64,7 @@ public class UserInput : MonoBehaviour {
 
 		// detect rotation inf Alt & RMB pressed
 		if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) &&
-	      Input.GetMouseButton(1)) {
+				Input.GetMouseButton(1)) {
 			destination.x -= Input.GetAxis("Mouse Y") * ResourceManager.RotateAmount;
 			destination.y += Input.GetAxis("Mouse X") * ResourceManager.RotateAmount;
 		}
@@ -74,7 +75,7 @@ public class UserInput : MonoBehaviour {
 	}
 
 	private void LeftClick() {
-		if (player.hud.MouseInBounts) {
+		if (player.hud.MouseInBounds()) {
 			GameObject hitObject = FindHitObject();
 			Vector3 hitPoint = FindHitPoint();
 			if (hitObject && hitPoint != ResourceManager.invalidPosition) {
