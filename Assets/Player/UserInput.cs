@@ -22,13 +22,13 @@ public class UserInput : MonoBehaviour {
 		// horizontal
 		if (xpos >= 0 && xpos < ResourceManager.ScrollWidth) {
 			movement.x -= ResourceManager.ScrollSpeed;
-		} else if (xpos <= Screen.width && xpos >  scrollRightLimit){
+		} else if (xpos <= Screen.width && xpos > scrollRightLimit){
 			movement.x += ResourceManager.ScrollSpeed;
 		}
 		// vertical
 		if (ypos >= 0 && ypos < ResourceManager.ScrollWidth) {
 			movement.z -= ResourceManager.ScrollSpeed;
-		} else if (ypos <= Screen.height && ypos >  scrollDownLimit){
+		} else if (ypos <= Screen.height && ypos > scrollDownLimit){
 			movement.z += ResourceManager.ScrollSpeed;
 		}
 
@@ -63,7 +63,7 @@ public class UserInput : MonoBehaviour {
 
 		// detect rotation inf Alt & RMB pressed
 		if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) &&
-		    Input.GetMouseButton(1)) {
+	      Input.GetMouseButton(1)) {
 			destination.x -= Input.GetAxis("Mouse Y") * ResourceManager.RotateAmount;
 			destination.y += Input.GetAxis("Mouse X") * ResourceManager.RotateAmount;
 		}
@@ -73,45 +73,45 @@ public class UserInput : MonoBehaviour {
 		}
 	}
 
-  private void LeftClick() {
-    if (player.hud.MouseInBounts) {
-      GameObject hitObject = FindHitObject();
-      Vector3 hitPoint = FindHitPoint();
-      if (hitObject && hitPoint != ResourceManager.invalidPosition) {
-        if (player.SelectedObject) player.SelectedObject.MouseClick(hitObject, hitPoint, player);
-        else if (hitObject.name != Ground) {
-          WorldObject worldObject = hitObject.transform.root.GetComponent<WorldObject>();
-          if (worldObject) {
-            player.SelectedObject = worldObject;
-            worldObject.SetSelected(true);
-          }
-        }
+	private void LeftClick() {
+		if (player.hud.MouseInBounts) {
+			GameObject hitObject = FindHitObject();
+			Vector3 hitPoint = FindHitPoint();
+			if (hitObject && hitPoint != ResourceManager.invalidPosition) {
+				if (player.SelectedObject) player.SelectedObject.MouseClick(hitObject, hitPoint, player);
+				else if (hitObject.name != Ground) {
+					WorldObject worldObject = hitObject.transform.root.GetComponent<WorldObject>();
+					if (worldObject) {
+						player.SelectedObject = worldObject;
+						worldObject.SetSelected(true);
+					}
+				}
 
-      }
-    }
+			}
+		}
 
-  }
+	}
 
 
-  private void RightClik() {
+	private void RightClik() {
 
-  }
+	}
 
-  private void MouseActivity() {
-    if (Input.GetMouseButtonDown(0)) {
-      LeftClick();
-    }
-    if (Inout.GetMouseButtonDown(1)) {
-      RightClick();
-    }
-  }
+	private void MouseActivity() {
+		if (Input.GetMouseButtonDown(0)) {
+			LeftClick();
+		}
+		if (Inout.GetMouseButtonDown(1)) {
+			RightClick();
+		}
+	}
 
 	// Update is called once per frame
 	void Update () {
 		if(player.human) {
 			MoveCamera();
 			RotateCamera();
-      MouseActivity();
+			MouseActivity();
 		}
 
 	}
