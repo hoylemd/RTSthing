@@ -4,6 +4,7 @@ using System.Collections;
 public class Player : MonoBehaviour {
 	public string username;
 	public bool human;
+	public WorldObject selectedObject {get; set;}
 
 	public HUD hud;
 

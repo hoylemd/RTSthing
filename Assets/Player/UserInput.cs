@@ -78,13 +78,13 @@ public class UserInput : MonoBehaviour {
 		if (player.hud.MouseInBounds()) {
 			GameObject hitObject = FindHitObject();
 			Vector3 hitPoint = FindHitPoint();
-			if (hitObject && hitPoint != ResourceManager.invalidPosition) {
-				if (player.SelectedObject) player.SelectedObject.MouseClick(hitObject, hitPoint, player);
-				else if (hitObject.name != Ground) {
+			if (hitObject && hitPoint != ResourceManager.InvalidPosition) {
+				if (player.selectedObject) player.selectedObject.MouseClick(hitObject, hitPoint, player);
+				else if (hitObject.name != "Ground") {
 					WorldObject worldObject = hitObject.transform.root.GetComponent<WorldObject>();
 					if (worldObject) {
-						player.SelectedObject = worldObject;
-						worldObject.SetSelected(true);
+						player.selectedObject = worldObject;
+						worldObject.SetSelection(true);
 					}
 				}
 
@@ -94,7 +94,7 @@ public class UserInput : MonoBehaviour {
 	}
 
 
-	private void RightClik() {
+	private void RightClick() {
 
 	}
 
@@ -102,9 +102,23 @@ public class UserInput : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0)) {
 			LeftClick();
 		}
-		if (Inout.GetMouseButtonDown(1)) {
+		if (Input.GetMouseButtonDown(1)) {
 			RightClick();
 		}
+	}
+
+	private GameObject FindHitObject() {
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		RaycastHit hit;
+		if (Physics.Raycast(ray, out hit)) return hit.collider.gameObject;
+		return null;
+	}
+
+	private Vector3 FindHitPoint() {
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		RaycastHit hit;
+		if (Physics.Raycast(ray, out hit)) return hit.point;
+		return ResourceManager.InvalidPosition;
 	}
 
 	// Update is called once per frame
