@@ -14,6 +14,13 @@ namespace RTS {
 		private static Vector3 invalidPosition =
 			new Vector3(-99999, -99999, -99999);
 		public static Vector3 InvalidPosition {get{return invalidPosition;}}
+
+		private static GUISkin selectBoxSkin;
+		public static GUISkin SelectboxSkin {get{return selectBoxSkin;}}
+
+		public static void StoreSelectBoxItems(GUISkin skin) {
+			selectBoxSkin = skin;
+		}
 	}
 }
 
