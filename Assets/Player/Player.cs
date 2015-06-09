@@ -17,4 +17,9 @@ public class Player : MonoBehaviour {
 	void Update () {
 
 	}
+
+	public void deselect() {
+		selectedObject.SetSelection(false);
+		selectedObject = null;
+	}
 }

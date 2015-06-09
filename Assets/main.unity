@@ -242,6 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   username: peaches
   human: 1
+  hud: {fileID: 0}
 --- !u!4 &974239406
 Transform:
   m_ObjectHideFlags: 0
@@ -369,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ac92a612b504ee082e7705d198340b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: 
+  objectName: Command Post
   buildImage: {fileID: 0}
   cost: 0
   sellValue: 0

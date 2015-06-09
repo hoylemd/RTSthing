@@ -93,9 +93,10 @@ public class UserInput : MonoBehaviour {
 
 	}
 
-
 	private void RightClick() {
-
+		if (player.hud.MouseInBounds() && !Input.GetKey(KeyCode.LeftAlt) && player.selectedObject) {
+			player.deselect();
+		}
 	}
 
 	private void MouseActivity() {
