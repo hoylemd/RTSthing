@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using RTS;
 
 public class HUD : MonoBehaviour {
 
-	public GUISkin resourceSkin, ordersSkin;
+	public GUISkin resourceSkin, ordersSkin, selectBoxSkin;
 	private const int ORDERS_BAR_WIDTH = 150, RESOURCE_BAR_HEIGHT = 40,
 		SELECTION_NAME_HEIGHT = 30;
 	private Player player;
@@ -11,6 +12,8 @@ public class HUD : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		player = transform.root.GetComponent<Player>();
+
+		ResourceManager.StoreSelectBoxItems(selectBoxSkin);
 	}
 
 	void DrawOrdersBar() {
