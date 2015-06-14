@@ -60,4 +60,9 @@ public class HUD : MonoBehaviour {
 			(mousePosition.x <= Screen.width - ORDERS_BAR_WIDTH &&
 				mousePosition.x >= 0);
 	}
+
+	public Rect GetPlayingArea() {
+		return new Rect(0, RESOURCE_BAR_HEIGHT, Screen.width - ORDERS_BAR_WIDTH, 
+		                Screen.height - RESOURCE_BAR_HEIGHT);
+	}
 }

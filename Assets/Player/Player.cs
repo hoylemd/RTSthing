@@ -19,7 +19,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void deselect() {
-		selectedObject.SetSelection(false);
+		selectedObject.SetSelection(false, hud.GetPlayingArea());
 		selectedObject = null;
 	}
 }

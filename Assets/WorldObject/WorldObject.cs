@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using RTS;
 
 public class WorldObject : MonoBehaviour {
 	public string objectName;
@@ -10,7 +11,12 @@ public class WorldObject : MonoBehaviour {
 	protected string[] actions = {};
 	protected bool currentlySelected = false;
 
+	protected Bounds selectionBounds;
+	protected Rect playingArea = new Rect(0.0f, 0.0f, 0.0f, 0.0f);
+
 	protected virtual void Awake() {
+		selectionBounds = ResourceManager.InvalidBounds;
+		CalculateBounds();
 	}
 
 	// Use this for initialization
@@ -23,12 +29,12 @@ public class WorldObject : MonoBehaviour {
 	}
 
 	private void ChangeSelection(WorldObject worldObject, Player controller) {
-		SetSelection(false);
+		SetSelection(false, playingArea);
 		if (controller.selectedObject) {
-			controller.selectedObject.SetSelection(false);
+			controller.selectedObject.SetSelection(false, playingArea);
 		}
 		controller.selectedObject = worldObject;
-		worldObject.SetSelection(true);
+		worldObject.SetSelection(true, controller.hud.GetPlayingArea());
 	}
 
 	public virtual void MouseClick(GameObject hitObject, Vector3 hitPoint,
@@ -40,14 +46,39 @@ public class WorldObject : MonoBehaviour {
 			// clicked on another world object
 			if (worldObject) ChangeSelection(worldObject, controller);
 		}
+	}
 
+	public void CalculateBounds() {
+		selectionBounds = new Bounds(transform.position, Vector3.zero);
+		foreach(Renderer r in GetComponentsInChildren<Renderer>()) {
+			selectionBounds.Encapsulate(r.bounds);
+		}
+	}
+
+	protected virtual void DrawSelectionBox(Rect selectBox) {
+		GUI.Box(selectBox, "");
+	}
+
+	private void DrawSelection() {
+		GUI.skin = ResourceManager.SelectBoxSkin;
+		Rect selectionBox = WorkManager.CalculateSelectionBox(selectionBounds, playingArea);
+		// Draw box
+		GUI.BeginGroup(playingArea);
+		DrawSelectionBox(selectionBox);
+		GUI.EndGroup();
 	}
 
 	protected virtual void OnGUI() {
+		if (currentlySelected) {
+			DrawSelection();
+		}
 	}
 
-	public void SetSelection(bool selected) {
+	public void SetSelection(bool selected, Rect playingArea) {
 		currentlySelected = selected;
+		if (selected) {
+			this.playingArea = playingArea;
+		}
 	}
 
 	public string[] GetActions() {
