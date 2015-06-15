@@ -9,6 +9,10 @@ public class HUD : MonoBehaviour {
 		SELECTION_NAME_HEIGHT = 30;
 	private Player player;
 
+	public Texture2D activeCursor, selectCursor,
+		   leftCursor, upCursor, rightCursor, downCursor;
+	public Texture2D[] attackCursors, harvestCursors, moveCursors;
+
 	// Use this for initialization
 	void Start() {
 		player = transform.root.GetComponent<Player>();
