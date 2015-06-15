@@ -86,10 +86,12 @@ public class HUD : MonoBehaviour {
 	}
 
 	void DrawMouseCursor() {
-		if (!MouseInBounds()) {
-			Cursor.visible = false;
-		} else {
+		bool mouseOverHud = !MouseInBounds() && activeCursorState != CursorState.PanRight &&
+			activeCursorState != CursorState.PanUp;
+		if (mouseOverHud) {
 			Cursor.visible = true;
+		} else {
+			Cursor.visible = false;
 			GUI.skin = mouseCursorSkin;
 			GUI.BeginGroup(new Rect(0,0,Screen.width,Screen.height));
 			UpdateCursorAnimation();
@@ -117,6 +119,19 @@ public class HUD : MonoBehaviour {
 		        currentFrame = (int)Time.time % moveCursors.Length;
 		        activeCursor = moveCursors[currentFrame];
 				break;
+			case CursorState.PanLeft:
+				activeCursor = leftCursor;
+				break;
+			case CursorState.PanRight:
+				activeCursor = rightCursor;
+				break;
+			case CursorState.PanUp:
+				activeCursor = upCursor;
+				break;
+			case CursorState.PanDown:
+				activeCursor = downCursor;
+				break;
+			default: break;
 		}
 	}
 	// Update is called once per frame

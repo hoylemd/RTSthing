@@ -18,18 +18,27 @@ public class UserInput : MonoBehaviour {
 		float xpos = Input.mousePosition.x;
 		float ypos = Input.mousePosition.y;
 		Vector3 movement = new Vector3(0, 0, 0);
+		bool mouseScroll = false;
 
 		// horizontal
 		if (xpos >= 0 && xpos < ResourceManager.ScrollWidth) {
 			movement.x -= ResourceManager.ScrollSpeed;
+			player.hud.SetCursorState(CursorState.PanLeft);
+			mouseScroll = true;
 		} else if (xpos <= Screen.width && xpos > scrollRightLimit){
 			movement.x += ResourceManager.ScrollSpeed;
+			player.hud.SetCursorState(CursorState.PanRight);
+			mouseScroll = true;
 		}
 		// vertical
 		if (ypos >= 0 && ypos < ResourceManager.ScrollWidth) {
 			movement.z -= ResourceManager.ScrollSpeed;
+			player.hud.SetCursorState(CursorState.PanDown);
+			mouseScroll = true;
 		} else if (ypos <= Screen.height && ypos > scrollDownLimit){
 			movement.z += ResourceManager.ScrollSpeed;
+			player.hud.SetCursorState(CursorState.PanUp);
+			mouseScroll = true;
 		}
 
 		// transform movement to be relative tro camera orientation, but lock y coord
@@ -55,6 +64,10 @@ public class UserInput : MonoBehaviour {
 		if (destination != origin) {
 			Camera.main.transform.position = Vector3.MoveTowards(origin,
 				destination, Time.deltaTime * ResourceManager.ScrollSpeed);
+		}
+
+		if (!mouseScroll) {
+			player.hud.SetCursorState(CursorState.Select);
 		}
 	}
 
@@ -87,10 +100,8 @@ public class UserInput : MonoBehaviour {
 						worldObject.SetSelection(true, player.hud.GetPlayingArea());
 					}
 				}
-
 			}
 		}
-
 	}
 
 	private void RightClick() {
