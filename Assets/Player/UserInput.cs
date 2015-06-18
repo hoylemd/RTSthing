@@ -95,9 +95,11 @@ public class UserInput : MonoBehaviour {
 				if (player.selectedObject) player.selectedObject.MouseClick(hitObject, hitPoint, player);
 				else if (hitObject.name != "Ground") {
 					WorldObject worldObject = hitObject.transform.root.GetComponent<WorldObject>();
+					Debug.Log(worldObject);
 					if (worldObject) {
 						player.selectedObject = worldObject;
 						worldObject.SetSelection(true, player.hud.GetPlayingArea());
+						Debug.Log (player.selectedObject);
 					}
 				}
 			}
@@ -107,6 +109,27 @@ public class UserInput : MonoBehaviour {
 	private void RightClick() {
 		if (player.hud.MouseInBounds() && !Input.GetKey(KeyCode.LeftAlt) && player.selectedObject) {
 			player.deselect();
+		}
+	}
+	
+	private void MouseHover() {
+		if (player.hud.MouseInBounds()) {
+			GameObject hoverObject = FindHitObject();
+
+			if (hoverObject) {
+				if (player.selectedObject) {
+					player.selectedObject.SetHoverState(hoverObject);
+				} else if (hoverObject.name != "Ground") {
+					Player owner = hoverObject.transform.root.GetComponent<Player>();
+					if (owner) {
+						Unit unit = hoverObject.transform.root.GetComponent<Unit>();
+						Building building = hoverObject.transform.root.GetComponent<Building>();
+						if (owner.username == player.username && (unit || building)) {
+							player.hud.SetCursorState(CursorState.Select);
+						}
+					}
+				}
+			}
 		}
 	}
 

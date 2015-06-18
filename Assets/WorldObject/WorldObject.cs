@@ -21,6 +21,9 @@ public class WorldObject : MonoBehaviour {
 
 	// Use this for initialization
 	protected virtual void Start() {
+		player = GetComponentInParent<Player>();
+		Debug.Log(objectName);
+		Debug.Log(player);
 	}
 
 	// Update is called once per frame
@@ -42,7 +45,7 @@ public class WorldObject : MonoBehaviour {
 		// only handle click if selected
 		if (currentlySelected && hitObject && hitObject.name != "Ground") {
 			WorldObject worldObject =
-				hitObject.transform.root.GetComponent<WorldObject>();
+				hitObject.transform.parent.GetComponent<WorldObject>();
 			// clicked on another world object
 			if (worldObject) ChangeSelection(worldObject, controller);
 		}
@@ -78,6 +81,16 @@ public class WorldObject : MonoBehaviour {
 		currentlySelected = selected;
 		if (selected) {
 			this.playingArea = playingArea;
+		}
+	}
+
+	public virtual void SetHoverState(GameObject hoverObject) {
+		// only handle if player is human, and this object is selected
+		if (player && player.human && currentlySelected) {
+			if (hoverObject.name != "Ground") {
+				player.hud.SetCursorState(CursorState.Select);
+
+			}	
 		}
 	}
 

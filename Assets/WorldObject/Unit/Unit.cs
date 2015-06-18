@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using RTS;
 
 public class Unit : WorldObject {
 
@@ -15,6 +16,14 @@ public class Unit : WorldObject {
 
     protected override void Update () {
 		base.Update();
+	}
+
+	public override void SetHoverState(GameObject hoverObject) {
+		base.SetHoverState(hoverObject);
+
+		if (player && player.human && currentlySelected) {
+			if(hoverObject.name == "Ground") player.hud.SetCursorState(CursorState.Move);
+		}
 	}
 
     protected override void OnGUI() {
