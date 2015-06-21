@@ -22,8 +22,6 @@ public class WorldObject : MonoBehaviour {
 	// Use this for initialization
 	protected virtual void Start() {
 		player = GetComponentInParent<Player>();
-		Debug.Log(objectName);
-		Debug.Log(player);
 	}
 
 	// Update is called once per frame
@@ -90,7 +88,7 @@ public class WorldObject : MonoBehaviour {
 			if (hoverObject.name != "Ground") {
 				player.hud.SetCursorState(CursorState.Select);
 
-			}	
+			}
 		}
 	}
 

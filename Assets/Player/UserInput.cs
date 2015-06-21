@@ -94,12 +94,10 @@ public class UserInput : MonoBehaviour {
 			if (hitObject && hitPoint != ResourceManager.InvalidPosition) {
 				if (player.selectedObject) player.selectedObject.MouseClick(hitObject, hitPoint, player);
 				else if (hitObject.name != "Ground") {
-					WorldObject worldObject = hitObject.transform.root.GetComponent<WorldObject>();
-					Debug.Log(worldObject);
+					WorldObject worldObject = hitObject.GetComponentInParent<WorldObject>();
 					if (worldObject) {
 						player.selectedObject = worldObject;
 						worldObject.SetSelection(true, player.hud.GetPlayingArea());
-						Debug.Log (player.selectedObject);
 					}
 				}
 			}
@@ -111,7 +109,7 @@ public class UserInput : MonoBehaviour {
 			player.deselect();
 		}
 	}
-	
+
 	private void MouseHover() {
 		if (player.hud.MouseInBounds()) {
 			GameObject hoverObject = FindHitObject();
@@ -140,6 +138,7 @@ public class UserInput : MonoBehaviour {
 		if (Input.GetMouseButtonDown(1)) {
 			RightClick();
 		}
+		MouseHover();
 	}
 
 	private GameObject FindHitObject() {
