@@ -5,6 +5,7 @@ using RTS;
 public class Unit : WorldObject {
 
     public bool moving, rotating;
+     public float moveSpeed, rotateSpeed;
 
     private Vector3 destination;
     private Quaternion targetRotation;
@@ -21,6 +22,12 @@ public class Unit : WorldObject {
 
     protected override void Update () {
         base.Update();
+
+		if (rotating) {
+			TurnToTarget();
+		} else if (moving) {
+			MakeMove();
+		}
     }
 
     public override void SetHoverState(GameObject hoverObject) {
@@ -55,4 +62,18 @@ public class Unit : WorldObject {
         rotating = true;
         moving = false;
     }
+
+	private void TurnToTarget() {
+		transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed);
+		// prevent gimball lock (stuck 180 degrees from target)
+		Quaternion inverseTargetRotation = new Quaternion(-targetRotation.x, -targetRotation.y, -targetRotation.z, -targetRotation.w);
+		if(transform.rotation == targetRotation || transform.rotation == inverseTargetRotation) {
+			rotating = false;
+			moving = true;
+		}
+	}
+
+	private void MakeMove() {
+
+	}
 }

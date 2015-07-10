@@ -10,12 +10,13 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		hud = GetComponentInChildren<HUD>();
+		if (!hud) {
+			hud = GetComponentInChildren<HUD>();
+		}
 	}
 
 	// Update is called once per frame
 	void Update () {
-
 	}
 
 	public void deselect() {

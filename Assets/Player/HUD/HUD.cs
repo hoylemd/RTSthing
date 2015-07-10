@@ -7,7 +7,7 @@ public class HUD : MonoBehaviour {
 	public GUISkin resourceSkin, ordersSkin, selectBoxSkin;
 	private const int ORDERS_BAR_WIDTH = 150, RESOURCE_BAR_HEIGHT = 40,
 		SELECTION_NAME_HEIGHT = 30;
-	private Player player;
+	public Player player;
 
 	public Texture2D activeCursor, selectCursor,
 		   leftCursor, upCursor, rightCursor, downCursor;
@@ -16,9 +16,15 @@ public class HUD : MonoBehaviour {
 	private CursorState activeCursorState;
 	private int currentFrame = 0;
 
+	void Awake() {
+
+	}
+
 	// Use this for initialization
 	void Start() {
-		player = transform.root.GetComponent<Player>();
+		if (!player) {
+			player = transform.root.GetComponent<Player>();
+		}
 
 		ResourceManager.StoreSelectBoxItems(selectBoxSkin);
 
